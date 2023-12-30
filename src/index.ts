@@ -2,11 +2,18 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { userRoutes } from "./routes/user-routes";
+import { TokenUser } from "./models/token-user";
 
 /* load up and parse config. details from
  * `.env` file tothe `process.env`
  * object of Node.js */
 dotenv.config();
+
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: TokenUser;
+  }
+}
 
 //create an express app and get value of the port environment variable from the `process.env`
 const app: Express = express();

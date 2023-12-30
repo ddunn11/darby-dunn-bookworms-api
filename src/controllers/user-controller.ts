@@ -1,9 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { User } from "../models/user";
 import { v4 as uuidv4 } from "uuid";
 import dotenv from "dotenv";
 import _knex from "knex";
 import { knexConfig } from "../../knexfile";
+import jwt from "jsonwebtoken";
+import { TokenUser } from "../models/token-user";
 
 dotenv.config();
 const nodeProfile = process.env.NODE_PROFILE;
@@ -39,16 +41,50 @@ export const loginUser = async (req: Request, res: Response) => {
   //Check if username and password are valid
   try {
     const user = await knex("user")
-      .where({ Username: username, Password: password })
+      .where({ username: username, password: password })
       .first();
 
     if (user) {
-      res.json({ message: "Login successful", user });
+      const token = generateToken(user);
+      res.json({ message: "Login successful", token });
     } else {
       res.status(401).json({ message: "Invalid credentials" });
     }
   } catch {
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+//midleware generates JWT on successful login
+const generateToken = (user: User): string => {
+  const jwtSecret = process.env.JWT_SECRET || "";
+
+  const token = jwt.sign(
+    { userID: user.userID, username: user.username },
+    jwtSecret,
+    { expiresIn: "24h" }
+  );
+  return token;
+};
+
+//middleware verifies JWT for protected routes (must be logged in to access)
+const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+  const jwtSecret = process.env.JWT_SECRET || "";
+  const token = req.header("Authorization")?.replace("Bearer", "");
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized access" });
+  }
+  try {
+    const userDecoded: TokenUser = jwt.verify(token, jwtSecret) as {
+      userID: string;
+      username: string;
+    };
+    //attach user info to the request
+    req["user"] = userDecoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Unauthorized access" });
   }
 };
 
