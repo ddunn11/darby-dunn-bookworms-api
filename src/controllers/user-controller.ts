@@ -33,6 +33,25 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
+//login endpoint
+export const loginUser = async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  //Check if username and password are valid
+  try {
+    const user = await knex("user")
+      .where({ Username: username, Password: password })
+      .first();
+
+    if (user) {
+      res.json({ message: "Login successful", user });
+    } else {
+      res.status(401).json({ message: "Invalid credentials" });
+    }
+  } catch {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 // const editUser = async (req: Request, res: Response) => {
 //   const { username, name, password } = req.body;
 //   if (!username || !name || !password) {
