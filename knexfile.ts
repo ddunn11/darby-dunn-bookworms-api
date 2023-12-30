@@ -1,12 +1,10 @@
 // Update with your config settings.
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
-module.exports = {
+
+export const knexConfig = {
   development: {
-    client: "mysql",
+    client: "mysql2",
     connection: {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
@@ -20,7 +18,7 @@ module.exports = {
   },
 
   production: {
-    client: "mysql",
+    client: "mysql2",
     connection: process.env.BOOKWORMSDB_URL,
     migrations: {
       tableName: "knex_migrations",
