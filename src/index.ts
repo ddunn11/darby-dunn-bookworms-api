@@ -4,6 +4,7 @@ import cors from "cors";
 import { userRoutes } from "./routes/user-routes";
 import { TokenUser } from "./models/token-user";
 import { clubRoutes } from "./routes/club-routes";
+import { meetingRoutes } from "./routes/meeting-routes";
 
 /* load up and parse config. details from
  * `.env` file tothe `process.env`
@@ -30,6 +31,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/users", userRoutes);
 app.use("/clubs", clubRoutes);
+app.use("/meetings", meetingRoutes);
 //start the Express app and listen for incoming requests on the specified port
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
