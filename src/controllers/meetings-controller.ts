@@ -19,16 +19,16 @@ export const createMeeting = async (req: Request, res: Response) => {
   if (!clubID || !date || !location || !book) {
     return res.status(400).json({ message: "All fields are required" });
   }
-  const meeting: Meeting = {
-    meetingID: uuidv4(),
-    clubID: clubID,
-    date: new Date(date),
-    location: location,
-    book: book,
-  };
-  await knex("meetings").insert(meeting);
-  res.json(meeting);
   try {
+    const meeting: Meeting = {
+      meetingID: uuidv4(),
+      clubID: clubID,
+      date: new Date(date),
+      location: location,
+      book: book,
+    };
+    await knex("meetings").insert(meeting);
+    res.json(meeting);
   } catch (error) {
     res.status(400).send("Error creating a meeting: ${error}");
   }
