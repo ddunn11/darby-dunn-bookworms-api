@@ -4,7 +4,7 @@ import { knexConfig } from "../../knexfile";
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { Club } from "../models/club";
-import { Member } from "../models/member";
+import { ClubMember } from "../models/club-member";
 
 dotenv.config();
 const nodeProfile = process.env.NODE_PROFILE;
@@ -33,20 +33,21 @@ export const createClub = async (req: Request, res: Response) => {
   }
 };
 
-//join club endpoint
+//joining a club
 export const joinClub = async (req: Request, res: Response) => {
   const { userID, clubID, role } = req.body;
   if (!userID || !clubID || !role) {
     return res.status(400).json({ message: "All fields are required" });
   }
   try {
-    const member: Member = {
-      userID: uuidv4(),
-      clubID: uuidv4(),
+    //uuid already exists
+    const clubMember: ClubMember = {
+      userID: userID,
+      clubID: clubID,
       role: role,
     };
-    await knex("clubmember").insert(member);
-    res.json(member);
+    await knex("clubmember").insert(clubMember);
+    res.json(clubMember);
   } catch (error) {
     res.status(404).send("Error joing the club: ${error}");
   }
