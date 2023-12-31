@@ -30,7 +30,7 @@ export const createUser = async (req: Request, res: Response) => {
     };
     await knex("user").insert(user);
     res.json(user);
-  } catch (err) {
+  } catch (error) {
     res.status(400).send("Error creating an account: ${err}");
   }
 };
