@@ -55,3 +55,6 @@ export const joinClub = async (req: Request, res: Response) => {
     res.status(404).send("Error joing the club: ${error}");
   }
 };
+
+// get every club one user is in
+export const getAllUserClubs = async (req: Request, res: Response) => {};
