@@ -35,17 +35,20 @@ export const createClub = async (req: Request, res: Response) => {
 
 //joining a club
 export const joinClub = async (req: Request, res: Response) => {
-  const { userID, clubID, role } = req.body;
+  const { userID, role } = req.body;
+  const clubID = req.params.clubID;
   if (!userID || !clubID || !role) {
     return res.status(400).json({ message: "All fields are required" });
   }
   try {
-    //uuid already exists
+    // uuid already exists for user and club
+    // uuidv4() creates new uuid, not needed here
     const clubMember: ClubMember = {
       userID: userID,
       clubID: clubID,
       role: role,
     };
+    //adds user to list of clubmembers for the chosen club
     await knex("clubmember").insert(clubMember);
     res.json(clubMember);
   } catch (error) {

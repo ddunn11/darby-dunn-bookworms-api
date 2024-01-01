@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { createClub } from "../controllers/club-controller";
+import { createClub, joinClub } from "../controllers/club-controller";
 
 const router = Router();
 
-router.route("/create-bookclub").post(createClub);
+router.route("/").post(createClub);
+
+router.route("/join/:clubID").post(joinClub);
 
 export { router as clubRoutes };
