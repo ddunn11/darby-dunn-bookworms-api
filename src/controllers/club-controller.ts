@@ -52,9 +52,30 @@ export const joinClub = async (req: Request, res: Response) => {
     await knex("clubmember").insert(clubMember);
     res.json(clubMember);
   } catch (error) {
-    res.status(404).send("Error joing the club: ${error}");
+    res.status(500).send("Error joing the club: ${error}");
   }
 };
 
 // get every club one user is in
-export const getAllUserClubs = async (req: Request, res: Response) => {};
+export const getAllUserClubs = async (req: Request, res: Response) => {
+  const userID = req.params.userID;
+  const userClubInfo = await knex
+    .select(
+      "user.UserID",
+      "user.Username",
+      "user.Name",
+      "bookclub.ClubID",
+      "bookclub.ClubName",
+      "bookclub.Description",
+      "clubmember.Role"
+    )
+    .from("user")
+    .where("user.UserID", userID)
+    .join("clubmember", "user.UserID", "clubmember.UserID")
+    .join("bookclub", "clubmember.ClubID", "bookclub.ClubID");
+  res.json(userClubInfo);
+  try {
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
