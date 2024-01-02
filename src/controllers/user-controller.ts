@@ -93,7 +93,7 @@ export const editUser = async (req: Request, res: Response) => {
     const { userID } = req.params;
     const { username, name } = req.body;
 
-    // check if the user exist
+    // check that the user exist
     const userExists = await knex("user").where("UserID", userID).first();
 
     if (!userExists) {

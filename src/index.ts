@@ -5,6 +5,7 @@ import { userRoutes } from "./routes/user-routes";
 import { TokenUser } from "./models/token-user";
 import { clubRoutes } from "./routes/club-routes";
 import { meetingRoutes } from "./routes/meeting-routes";
+import swaggerUI from "swagger-ui-express";
 
 /* load up and parse config. details from
  * `.env` file tothe `process.env`
@@ -28,6 +29,8 @@ app.use(express.json());
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + Typescript Server");
 });
+
+app.use("/docs", swaggerUI.serve);
 
 app.use("/users", userRoutes);
 app.use("/clubs", clubRoutes);

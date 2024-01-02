@@ -79,3 +79,28 @@ export const getAllUserClubs = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// endpoint to edit club
+export const editClub = async (req: Request, res: Response) => {
+  const { clubID } = req.params;
+  const { clubName, description } = req.body;
+
+  //check that the club exists
+  const clubExists = await knex("bookclub").where("ClubID", clubID).first();
+
+  if (!clubExists) {
+    return res.status(404).json({ error: "Club not found" });
+  }
+
+  // update club details
+  await knex("bookclub")
+    .where("ClubID", clubID)
+    .update({ ClubName: clubName, Description: description });
+
+  res.json({ message: "Club updated successfully" });
+  try {
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
