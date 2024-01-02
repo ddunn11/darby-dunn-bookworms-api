@@ -33,3 +33,32 @@ export const createMeeting = async (req: Request, res: Response) => {
     res.status(400).send("Error creating a meeting: ${error}");
   }
 };
+
+//edit a meeting
+export const editMeeting = async (req: Request, res: Response) => {
+  const { date, location, book } = req.body;
+  const meetingID = req.params.meetingID;
+  const clubID = req.params.clubID;
+
+  if (!date || !location || !book) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+  try {
+    //check the meeting exists
+    const meetingExists = await knex("meetings")
+      .where("MeetingID", meetingID)
+      .first();
+
+    if (!meetingExists) {
+      return res.status(404).json({ error: "Club not found" });
+    }
+    // update meeting details
+    await knex("meetings")
+      .where("MeetingID", meetingID)
+      .update({ Date: new Date(), Location: location, Book: book });
+    res.json({ message: "Club updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error joing the club: ${error}");
+  }
+};
