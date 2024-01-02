@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { createMeeting } from "../controllers/meetings-controller";
+import { createMeeting, editMeeting } from "../controllers/meetings-controller";
 
 const router = Router();
 
 router.route("/add-meeting").post(createMeeting);
+
+router.route("/edit-meeting").put(editMeeting);
 
 export { router as meetingRoutes };
