@@ -89,10 +89,10 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const editUser = async (req: Request, res: Response) => {
-  try {
-    const { userID } = req.params;
-    const { username, name } = req.body;
+  const { userID } = req.params;
+  const { username, name } = req.body;
 
+  try {
     // check that the user exist
     const userExists = await knex("user").where("UserID", userID).first();
 
