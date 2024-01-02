@@ -88,14 +88,26 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-// const editUser = async (req: Request, res: Response) => {
-//   const { username, name, password } = req.body;
-//   if (!username || !name || !password) {
-//     return res.status(400).json({ message: "All fields are required" });
-//   }
-//   try {
-//     const result = await knex("users").insert(user);
-//   } catch (err) {
-//     res.status(400).send("Error creating an account: ${err}");
-//   }
-// };
+export const editUser = async (req: Request, res: Response) => {
+  try {
+    const { userID } = req.params;
+    const { username, name } = req.body;
+
+    // check if the user exist
+    const userExists = await knex("user").where("UserID", userID).first();
+
+    if (!userExists) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // update user info
+    await knex("user")
+      .where("UserID", userID)
+      .update({ Username: username, Name: name });
+
+    res.json({ message: "User updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
