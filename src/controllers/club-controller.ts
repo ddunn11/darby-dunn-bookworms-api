@@ -57,7 +57,7 @@ export const joinClub = async (req: Request, res: Response) => {
 };
 
 // get every club one user is in
-export const getAllUserClubs = async (req: Request, res: Response) => {
+export const getAllClubsForUser = async (req: Request, res: Response) => {
   const userID = req.params.userID;
   const userClubInfo = await knex
     .select(

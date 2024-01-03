@@ -3,7 +3,7 @@ import {
   createClub,
   editClub,
   editRole,
-  getAllUserClubs,
+  getAllClubsForUser,
   joinClub,
 } from "../controllers/club-controller";
 
@@ -17,6 +17,6 @@ router.route("/:clubID").put(editClub);
 
 router.route("/edit-role/:userID/:clubID").put(editRole);
 
-router.route("/:userID").get(getAllUserClubs);
+router.route("/:userID").get(getAllClubsForUser);
 
 export { router as clubRoutes };
