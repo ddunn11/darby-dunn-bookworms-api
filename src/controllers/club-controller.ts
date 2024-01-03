@@ -86,7 +86,7 @@ export const editClub = async (req: Request, res: Response) => {
   const { clubName, description } = req.body;
 
   try {
-    //check that the club exists
+    // check that the club exists
     const clubExists = await knex("bookclub").where("ClubID", clubID).first();
 
     if (!clubExists) {
@@ -98,6 +98,23 @@ export const editClub = async (req: Request, res: Response) => {
       .update({ ClubName: clubName, Description: description });
 
     res.json({ message: "Club updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// edit a clubmember's role
+export const editRole = async (req: Request, res: Response) => {
+  const { userID, clubID } = req.params;
+  const { role } = req.body;
+
+  try {
+    // update clubmember's role in specific bookclub
+    await knex("bookclub")
+      .where("UserID", userID)
+      .where("ClubID", clubID)
+      .update({ Role: role });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
