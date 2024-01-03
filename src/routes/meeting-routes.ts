@@ -3,8 +3,8 @@ import { createMeeting, editMeeting } from "../controllers/meetings-controller";
 
 const router = Router();
 
-router.route("/add-meeting").post(createMeeting);
+router.route("/").post(createMeeting);
 
-router.route("/edit-meeting").put(editMeeting);
+router.route("/:meetingID").put(editMeeting);
 
 export { router as meetingRoutes };
