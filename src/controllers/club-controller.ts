@@ -56,25 +56,41 @@ export const joinClub = async (req: Request, res: Response) => {
   }
 };
 
+// get club details
+export const getClubDetails = async (req: Request, res: Response) => {
+  const clubID = req.params.clubID;
+  try {
+    const clubDetails = await knex
+      .select("clubName", "Description")
+      .from("bookclub")
+      .where("ClubID", clubID);
+    res.json(clubDetails);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+//get all users in a club
+
 // get every club one user is in
 export const getAllClubsForUser = async (req: Request, res: Response) => {
   const userID = req.params.userID;
-  const userClubInfo = await knex
-    .select(
-      "user.UserID",
-      "user.Username",
-      "user.Name",
-      "bookclub.ClubID",
-      "bookclub.ClubName",
-      "bookclub.Description",
-      "clubmember.Role"
-    )
-    .from("user")
-    .where("user.UserID", userID)
-    .join("clubmember", "user.UserID", "clubmember.UserID")
-    .join("bookclub", "clubmember.ClubID", "bookclub.ClubID");
-  res.json(userClubInfo);
   try {
+    const userClubInfo = await knex
+      .select(
+        "user.UserID",
+        "user.Username",
+        "user.Name",
+        "bookclub.ClubID",
+        "bookclub.ClubName",
+        "bookclub.Description",
+        "clubmember.Role"
+      )
+      .from("user")
+      .where("user.UserID", userID)
+      .join("clubmember", "user.UserID", "clubmember.UserID")
+      .join("bookclub", "clubmember.ClubID", "bookclub.ClubID");
+    res.json(userClubInfo);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
