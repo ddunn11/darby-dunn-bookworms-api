@@ -111,10 +111,10 @@ export const editRole = async (req: Request, res: Response) => {
 
   try {
     // update clubmember's role in specific bookclub
-    await knex("bookclub")
-      .where("UserID", userID)
-      .where("ClubID", clubID)
+    await knex("clubmember")
+      .where({ UserID: userID, ClubID: clubID })
       .update({ Role: role });
+    res.json({ message: "Club member role updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
