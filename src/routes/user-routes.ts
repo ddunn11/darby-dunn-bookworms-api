@@ -2,12 +2,13 @@ import { Router } from "express";
 import {
   createUser,
   editUser,
+  getUserDetails,
   loginUser,
 } from "../controllers/user-controller";
 
 const router = Router();
 
-router.route("/").post(createUser);
+router.route("/").post(createUser).get(getUserDetails);
 
 router.route("/:userID").put(editUser);
 

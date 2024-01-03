@@ -35,6 +35,20 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
+// get one user's details
+export const getUserDetails = async (req: Request, res: Response) => {
+  const userID = req.params.userID;
+  try {
+    const userDetails = await knex
+      .select("Username", "Name")
+      .from("user")
+      .where("UserID", userID);
+    res.json(userDetails);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 //login endpoint
 export const loginUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;

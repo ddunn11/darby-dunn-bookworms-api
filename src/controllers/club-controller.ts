@@ -61,7 +61,7 @@ export const getClubDetails = async (req: Request, res: Response) => {
   const clubID = req.params.clubID;
   try {
     const clubDetails = await knex
-      .select("clubName", "Description")
+      .select("ClubName", "Description")
       .from("bookclub")
       .where("ClubID", clubID);
     res.json(clubDetails);
