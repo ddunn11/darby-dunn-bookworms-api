@@ -8,9 +8,9 @@ import {
 
 const router = Router();
 
-router.route("/").post(createUser).get(getUserDetails);
+router.route("/").post(createUser);
 
-router.route("/:userID").put(editUser);
+router.route("/:userID").put(editUser).get(getUserDetails);
 
 router.route("/login").post(loginUser);
 

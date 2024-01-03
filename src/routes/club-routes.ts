@@ -4,6 +4,7 @@ import {
   editClub,
   editRole,
   getAllClubsForUser,
+  getClubDetails,
   joinClub,
 } from "../controllers/club-controller";
 
@@ -13,7 +14,7 @@ router.route("/").post(createClub);
 
 router.route("/join/:clubID").post(joinClub);
 
-router.route("/:clubID").put(editClub);
+router.route("/:clubID").put(editClub).get(getClubDetails);
 
 router.route("/edit-role/:userID/:clubID").put(editRole);
 
