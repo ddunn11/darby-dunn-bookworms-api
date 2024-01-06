@@ -24,6 +24,6 @@ router.route("/:clubID/meetings").get(getAllMeetingsForClub);
 
 router.route("/edit-role/:userID/:clubID").put(editRole);
 
-router.route("/:userID").get(getAllClubsForUser);
+router.route("/user/:userID").get(getAllClubsForUser);
 
 export { router as clubRoutes };

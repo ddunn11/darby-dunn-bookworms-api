@@ -111,12 +111,10 @@ export const getAllMeetingsForClub = async (req: Request, res: Response) => {
 // get every club one user is in
 export const getAllClubsForUser = async (req: Request, res: Response) => {
   const userID = req.params.userID;
+  console.log(userID);
   try {
     const userClubInfo = await knex
       .select(
-        "user.UserID",
-        "user.Username",
-        "user.Name",
         "bookclub.ClubID",
         "bookclub.ClubName",
         "bookclub.Description",
