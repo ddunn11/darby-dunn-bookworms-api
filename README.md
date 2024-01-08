@@ -8,10 +8,16 @@ Bookworms is a centralized hub for book enthusiasts, streamlining the book club 
 
 - Users sign up
 - Login
+- Navigation bar
+  - Navigates to home page
+  - Displays user avatar
+    - Clicking the avatar initiates a drop down to navigate home, edit user, or logout
 - Create or join book clubs
 - Home page lists all book clubs that the user belongs to
-- BookClubPage lists the specific book club details, club members, and meeting details
+- Book Club Page lists the specific book club details, club members, and meeting details
+- Edit Book Club Page
 - Set meeting information (book, date, location/online streaming service)
+- Edit meetings page to edit meeting information
 
 # Installation
 
@@ -230,14 +236,24 @@ about clubs associated with a specific user, identified by userID.
   - Successful submission redirects user to home page
 - Sign up page
   - Successful submission redirects user to home page
+- Edit user account page
 - Home page
   - Displays all the book clubs a user belongs to
 - Book club page
   - Displays all information specific to the book club (club name, description, members)
 - Create a book club page
+- Edit a book club page
 - Create a meeting page
+- Edit a meeting page
 
-## Nice-to-haves
+## Lessons Learned and Next Steps
+
+This was my first project using TypeScript, and it proved to be a valuable learning opportunity.I gained a deeper understanding of TypeScript's benefits in enhancing code quality, catching potential errors early, and improving overall developer confidence. However, I also ran into numerous unexpected challenges with configuration. This experience not only improved my troubleshooting skills but also deepened my understanding of TypeScript's integration nuances.
+Underestimating the intricacies of MySQL tables was a noteworthy revelation. While I had anticipated some challenges, the project exposed me to the complexity of designing and managing database tables effectively. This experience underscored the importance of thorough planning and understanding of database structures, ultimately contributing to a more robust and scalable application.
+
+The upcoming steps for my website involve selecting a hosting provider, configuring the domain, and optimizing the project for production. I'll then deploy the code, perform thorough testing, and consider implementing continuous deployment. Monitoring tools will be added for performance tracking, and I'll update documentation to guide collaborators through the deployment process. These steps ensure a seamless transition from development to a live website accessible to users.
+
+# Nice-to-haves
 
 - Book ratings
 - Page on each user's profile that catalogs what books they've read (in or outside of book clubs) and their ratings
