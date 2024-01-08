@@ -1,4 +1,4 @@
-// Update with your config settings.
+// Update with config settings.
 import dotenv from "dotenv";
 dotenv.config();
 

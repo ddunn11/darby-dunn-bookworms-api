@@ -37,6 +37,4 @@ app.use("/users", userRoutes);
 app.use("/clubs", clubRoutes);
 app.use("/meetings", meetingRoutes);
 //start the Express app and listen for incoming requests on the specified port
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+app.listen(port, () => {});

@@ -111,7 +111,6 @@ export const getAllMeetingsForClub = async (req: Request, res: Response) => {
 // get every club one user is in
 export const getAllClubsForUser = async (req: Request, res: Response) => {
   const userID = req.params.userID;
-  console.log(userID);
   try {
     const userClubInfo = await knex
       .select(
@@ -160,7 +159,7 @@ export const editRole = async (req: Request, res: Response) => {
   const { role } = req.body;
 
   try {
-    // update clubmember's role in specific bookclub
+    // updates clubmember's role in specific bookclub
     await knex("clubmember")
       .where({ UserID: userID, ClubID: clubID })
       .update({ Role: role });
