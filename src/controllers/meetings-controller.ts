@@ -30,7 +30,7 @@ export const createMeeting = async (req: Request, res: Response) => {
     await knex("meetings").insert(meeting);
     res.json(meeting);
   } catch (error) {
-    res.status(400).send("Error creating a meeting: ${error}");
+    res.status(400).send(`Error creating a meeting: ${error}`);
   }
 };
 

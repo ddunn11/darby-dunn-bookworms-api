@@ -29,7 +29,7 @@ export const createClub = async (req: Request, res: Response) => {
     await knex("bookclub").insert(club);
     res.json(club);
   } catch (error) {
-    res.status(400).send("Error creating an account: ${error}");
+    res.status(400).send(`Error creating an account: ${error}`);
   }
 };
 
@@ -52,7 +52,7 @@ export const joinClub = async (req: Request, res: Response) => {
     await knex("clubmember").insert(clubMember);
     res.json(clubMember);
   } catch (error) {
-    res.status(500).send("Error joing the club: ${error}");
+    res.status(500).send(`Error joing the club: ${error}`);
   }
 };
 
